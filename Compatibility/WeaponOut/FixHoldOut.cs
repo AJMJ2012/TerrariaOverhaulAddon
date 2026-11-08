@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Config;
 using TerrariaOverhaul.Common.EntityEffects;
-using static MetroidMod.Sounds;
 
 namespace TerrariaOverhaulAddon.Compatibility;
 
