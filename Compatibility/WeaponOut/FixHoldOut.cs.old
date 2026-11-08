@@ -1,0 +1,53 @@
+﻿using System;
+using System.Reflection;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ModLoader;
+using TerrariaOverhaul.Common.EntityEffects;
+
+namespace TerrariaOverhaulAddon.Compatibility;
+
+[JITWhenModsEnabled("WeaponOut")]
+internal class WeaponOut_FixHoldOut : ModSystem
+{
+	bool overhaulHandled = false;
+	static WeaponOut_FixHoldOut_Config Config => WeaponOut_FixHoldOut_Config.Instance;
+	public override void Load()
+	{
+		if (ModLoader.HasMod("WeaponOut"))
+		{
+			MonoModHooks.Add(typeof(PlayerHoldOutAnimation).GetMethod("ShouldForceUseAnim", BindingFlags.NonPublic | BindingFlags.Static), bool (Func<Player, Item, bool> orig, Player player, Item item) =>
+			{
+				bool isHeld = orig(player, item);
+				overhaulHandled = false;
+				// Held Projectile Weapon
+				if (player.heldProj >= 0 && item.noUseGraphic)
+					return false;
+				// Prefer WeaponOut's style
+				if ((!Config.PreferOverhaulHoldOut && isHeld) && WeaponOut.DrawTool.DefaultVisibility(new PlayerDrawSet() { heldItem = item }) && player.TryGetModPlayer<WeaponOut.WOPlayer>(out var woPlayer) && woPlayer.Show == true)
+					return false;
+				return overhaulHandled = isHeld;
+			});
+
+			MonoModHooks.Add(typeof(WeaponOut.DrawTool).GetMethod("DefaultVisibility", BindingFlags.Public | BindingFlags.Static), bool (Func<PlayerDrawSet, bool> orig, PlayerDrawSet drawInfo) =>
+			{
+				// Handled by Overhaul
+				if (overhaulHandled)
+					return false;
+				// Held Projectile Weapon - Can't do much about that
+				if (drawInfo.drawPlayer?.heldProj >= 0 && drawInfo.heldItem?.noUseGraphic == true)
+					return false;
+				return orig(drawInfo);
+			});
+		}
+	}
+}
+
+public class WeaponOut_FixHoldOut_Config : ModConfig
+{
+	public override ConfigScope Mode => ConfigScope.ClientSide;
+	public static WeaponOut_FixHoldOut_Config Instance;
+
+	[DefaultValue(false)]
+	public bool PreferOverhaulHoldOut = false;
+}

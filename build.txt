@@ -1,0 +1,6 @@
+﻿author = Dark Assassin
+version = 1.0
+displayName = Terraria Overhaul Addon (5.0.0.38)
+modReferences = TerrariaOverhaul@5.0.0.38
+weakReferences = MetroidMod, WeaponOut, WeaponOutLite, TerrariaAmbience
+buildIgnore = lib/*, .vs/*, .vscode/*, bin/*, obj/*

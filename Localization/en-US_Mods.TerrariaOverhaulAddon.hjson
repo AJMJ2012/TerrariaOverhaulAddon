@@ -1,0 +1,15 @@
+Configs: {
+	WeaponOut_FixHoldOut_Config: {
+		DisplayName: WeaponOut FixHoldOut Config
+
+		PreferOverhaulHoldOut: {
+			Label: Prefer Overhaul Hold Out
+			Tooltip: Only works if enabled in Terraria Overhaul
+		}
+
+		Enabled: {
+			Label: Enable WeaponOut Component
+			Tooltip: ""
+		}
+	}
+}

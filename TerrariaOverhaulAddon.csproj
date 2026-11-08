@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<Import Project="..\tModLoader.targets" />
+	<PropertyGroup>
+		<AssemblyName>TerrariaOverhaulAddon</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="TerrariaOverhaul">
+			<HintPath>Lib\TerrariaOverhaul_v5.0.0.38.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="MetroidMod">
+			<HintPath>Lib\MetroidMod_v2.1.1.1110054.dll</HintPath>
+		</Reference>
+		<Reference Include="WeaponOut">
+			<HintPath>Lib\WeaponOut_v1.4.4.9.dll</HintPath>
+		</Reference>
+		<Reference Include="WeaponOut">
+			<HintPath>Lib\WeaponOutLite_v1.0.1.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>
