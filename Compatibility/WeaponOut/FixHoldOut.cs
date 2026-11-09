@@ -45,7 +45,7 @@ internal class WeaponOut_FixHoldOut : ModSystem
 				return false;
 			bool isHeld = orig(player, item) && PlayerHoldOutAnimation.AlwaysShowAimableWeapons;
 			// Prefer WeaponOut's style if available
-			if (!Config.PreferOverhaulHoldOut && isHeld && !player.pulley)
+			if (!Config.PreferOverhaulHoldOut && isHeld && !player.pulley && player.grapCount <= 0)
 			{
 				player.TryGetModPlayer<WeaponOut.WOPlayer>(out var woPlayer);
 				bool canDraw = woPlayer.Show && WeaponOut.DrawTool.DefaultVisibility(new PlayerDrawSet() { drawPlayer = player, heldItem = item });
@@ -82,7 +82,7 @@ internal class WeaponOut_FixHoldOut : ModSystem
 			if (player.heldProj >= 0 && item.noUseGraphic)
 				return false;
 			bool isHeld = orig(player, item) && PlayerHoldOutAnimation.AlwaysShowAimableWeapons;
-			if (!Config.PreferOverhaulHoldOut && isHeld && !player.pulley)
+			if (!Config.PreferOverhaulHoldOut && isHeld && !player.pulley && player.grapCount <= 0)
 			{
 				// Prefer WeaponOut's style if available
 				player.TryGetModPlayer<WeaponOutLite.Common.Players.WeaponOutPlayerRenderer>(out var woPlayer);
